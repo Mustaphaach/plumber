@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faInstagram, faTiktok } from "@fortawesome/free-brands-svg-icons";
+
 
 // --- Preloader (logo zoom) ---
 const Preloader: React.FC<{ logoSrc: string }> = ({ logoSrc }) => {
   const [hidden, setHidden] = useState(false);
+
 
   useEffect(() => {
     const onReady = () => {
@@ -15,6 +19,7 @@ const Preloader: React.FC<{ logoSrc: string }> = ({ logoSrc }) => {
     }
     return () => window.removeEventListener('load', onReady);
   }, []);
+
 
   return (
     <div
@@ -49,6 +54,7 @@ const Preloader: React.FC<{ logoSrc: string }> = ({ logoSrc }) => {
   );
 };
 
+
 // --- SVG Icons Component ---
 const Icon: React.FC<{ name: string; className?: string }> = ({ name, className = "w-6 h-6" }) => {
   const icons: { [key: string]: React.ReactNode } = {
@@ -65,6 +71,7 @@ const Icon: React.FC<{ name: string; className?: string }> = ({ name, className 
     instagram: <path d="M16 11.37A4 4 0  1 1 12.63 8 4 4 0 0 1 16 11.37zm1.5-4.87h.01" />,
   };
 
+
   return (
     <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
       {icons[name]}
@@ -72,9 +79,11 @@ const Icon: React.FC<{ name: string; className?: string }> = ({ name, className 
   );
 };
 
+
 // --- Header Component ---
 const Header: React.FC<{ onGetQuoteClick: () => void; logoSrc: string }> = ({ onGetQuoteClick, logoSrc }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -82,31 +91,36 @@ const Header: React.FC<{ onGetQuoteClick: () => void; logoSrc: string }> = ({ on
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur shadow-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-6 py-2 flex justify-between items-center">
-        <img src={logoSrc} alt="Titan Plumber Dubai" className="h-14 md:h-16 w-auto" loading="eager" />
+        <img src={logoSrc} alt="Titan Plumber Dubai" className="h-24 md:h-28 w-auto" loading="eager" />
         <button
           onClick={onGetQuoteClick}
           className="bg-[#004487] text-white font-semibold px-5 md:px-6 py-2 rounded-full hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition duration-300 transform hover:scale-105 hidden md:block"
         >
-          contact us
+          Contact Us
         </button>
       </div>
     </header>
   );
 };
 
+
 // --- Hero Section Component ---
 const heroImages = [
-  "https://i.postimg.cc/30djV0N4/male-plumber-working-fix-problems-client-s-house.jpg",
-  "https://i.postimg.cc/mckrQY5c/plumbing-professional-doing-his-job.jpg"
+  "https://i.postimg.cc/Nf8mDWY0/2.jpg",
+  "https://i.postimg.cc/Fsb3p2m9/1.jpg"
 ];
+
 
 const SLIDE_DURATION = 4200; // ms, time per slide
 
-const HeroSection: React.FC<{ onGetQuoteClick: () => void }> = ({ onGetQuoteClick }) => {
+
+const HeroSection: React.FC<{ onSeeOurWorkClick: () => void }> = ({ onSeeOurWorkClick }) => {
   const [current, setCurrent] = useState(0);
+
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -114,6 +128,7 @@ const HeroSection: React.FC<{ onGetQuoteClick: () => void }> = ({ onGetQuoteClic
     }, SLIDE_DURATION);
     return () => clearTimeout(timeout);
   }, [current]);
+
 
   return (
     <section className="relative h-[90vh] md:h-screen flex items-center justify-center text-white text-center overflow-hidden">
@@ -139,16 +154,16 @@ const HeroSection: React.FC<{ onGetQuoteClick: () => void }> = ({ onGetQuoteClic
       {/* Hero content */}
       <div className="relative z-10 p-6 w-full">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight drop-shadow-lg">
-          Your Trusted Plumbing Experts in Dubai
+          Your trusted plumbing experts in Marrakech
         </h1>
         <p className="text-lg md:text-2xl mb-8 max-w-3xl mx-auto drop-shadow">
-          Fast, reliable, and affordable plumbing services for homes and businesses.
+         Fast, reliable, and affordable plumbing services for both homes and businesses.
         </p>
         <button
-          onClick={onGetQuoteClick}
+          onClick={onSeeOurWorkClick}
           className="bg-[#004487] text-white font-bold px-8 md:px-10 py-3.5 md:py-4 rounded-full text-lg hover:bg-orange-600 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
         >
-          contact us
+          See our work
         </button>
       </div>
     </section>
@@ -173,6 +188,7 @@ const features = [
   }
 ];
 
+
 const AboutSection: React.FC = () => (
   <section id="about" className="py-20 bg-gray-50">
     <div className="container mx-auto px-6">
@@ -181,15 +197,15 @@ const AboutSection: React.FC = () => (
         <div className="flex flex-col gap-6">
           <span className="inline-block text-xs bg-[#004586] text-white px-3 py-1 font-bold rounded-lg w-fit mb-2 shadow-sm tracking-wide animate-pulse">10+ Years Experience</span>
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight" style={{ color: "#004586" }}>
-            About Titan Plumber Dubai
+           About Plombier Marrakech
           </h2>
           <p className="text-gray-700 leading-relaxed text-lg md:text-xl mb-2">
-            The trusted name for top-tier plumbing solutions in Dubai. We combine technical excellence, transparent pricing, and a passion for customer satisfaction to deliver results you can rely on.
+            The trusted name for quality plumbing solutions in Marrakech.We combine technical expertise, fair pricing, and dedication to customer satisfaction to deliver service you can depend on.
           </p>
           <ul className="list-disc text-gray-600 ml-6 text-base space-y-2">
-            <li>Residential & commercial services</li>
-            <li>Licensed, insured & highly trained team</li>
-            <li>No hidden fees. Always upfront & fair</li>
+            <li>Residential & commercial plumbing services</li>
+            <li>Experienced, qualified, and reliable technicians</li>
+            <li>No hidden fees — clear pricing every time</li>
           </ul>
         </div>
         {/* Right column: Features */}
@@ -215,18 +231,20 @@ const AboutSection: React.FC = () => (
   </section>
 );
 
+
 // --- Gallery Section ---
 const galleryImages = [
-  "https://i.postimg.cc/QV8RPKVM/imgi-23-AF1Qip-NR1tu-LH1j-PGPRih-Ij-KZjb3Hkj-O5CB0EG-N5q-Nx-s635-k-no.jpg",
-  "https://i.postimg.cc/rzfvLytr/imgi-27-AF1Qip-ORGzd-U1TLy9r7UFl-W4V-Qt-Tf-IHni-Md9IXUNw-Qy-s536-k-no-1.jpg",
-  "https://i.postimg.cc/8sZqVkrC/imgi-30-AF1Qip-MMt-Yqolfc-T-pc-Diz3Lj0TVefe1Yj-Ql1l2wez-FE-s544-k-no.jpg",
-  "https://i.postimg.cc/t7BLHRVX/imgi-32-AF1Qip-Pltw-E8Qpcz-B8SKjm-Qh-FBI98kin-KIy0KIF4w-V1-s599-k-no.jpg",
-  "https://i.postimg.cc/230PfjBy/imgi-36-AF1Qip-OEA3E-Ze-Yh-Zm66x-Mn-Nj-HV8gc-Kg-Vlr-P0QIqg-S-s696-k-no.jpg",
-  "https://i.postimg.cc/3WtPHrD8/imgi-40-AF1Qip-NMd4M6a-Ai-J66Lb-SD4WHCG75t5xgx-JECn-Nv-SVkp-s618-k-no.jpg",
+  "https://i.postimg.cc/HsY4fZjP/2025_10_16.jpg",
+  "https://i.postimg.cc/bNyHKCd6/2025_09_09.jpg",
+  "https://i.postimg.cc/ryCNZXy7/2025_04_22_2.jpg",
+  "https://i.postimg.cc/L4B3QK4b/2025_04_22_1.jpg",
+  "https://i.postimg.cc/7PMnt8Yv/2025_04_22.jpg",
+  "https://i.postimg.cc/PfzQVsfS/2024_11_09.jpg",
 ];
 
-const GallerySection: React.FC = () => (
-  <section id="gallery" className="py-20 bg-white">
+
+const GallerySection = React.forwardRef<HTMLDivElement>((_, ref) => (
+  <section id="gallery" ref={ref} className="py-20 bg-white">
     <div className="mx-auto max-w-5xl w-[92vw]">
       <h2
         className="text-center font-oswald font-light text-4xl md:text-5xl tracking-wider mb-10"
@@ -253,14 +271,15 @@ const GallerySection: React.FC = () => (
       }
     `}</style>
   </section>
-);
+));
+
 
 // --- Why Choose Us Section ---
 const whyChooseFeatures = [
   {
     icon: 'clock',
     title: '24/7 Support',
-    description: 'We’re always ready for emergencies—call us any time, day or night.',
+    description: 'We re always ready for emergencies—call us any time, day or night.',
     highlight: 'Anytime Help',
     color: 'bg-[#eaf2fb] text-[#004586]'
   },
@@ -286,6 +305,7 @@ const whyChooseFeatures = [
     color: 'bg-[#f2faff] text-[#2377a3]'
   },
 ];
+
 
 const WhyChooseUsSection: React.FC = () => (
   <section id="why-us" className="py-20 bg-gray-50">
@@ -318,27 +338,29 @@ const WhyChooseUsSection: React.FC = () => (
 );
 
 
+
 // --- Testimonials Section ---
 const testimonials = [
   {
-    name: "Ahmed Al Maktoum",
-    text: "Incredibly fast service! They fixed my burst pipe in the middle of the night. Highly recommend Titan Plumber Dubai.",
+    name: "Martine M",
+    text: "Mr Adnan est intervenu chez moi pour la pose d'un osmoseur inverseTrès ponctuel , méticuleux, et précis,  Mr Adnan a fait un travail efficace,  propre, avec une grande conscience professionnelle, et un suivi après vente très aidant.Je l'en remercie beaucoup et ferais appel à lui dès que besoin.",
     stars: 5,
     img: "https://picsum.photos/100/100?random=20"
   },
   {
-    name: "Sophie Chen",
-    text: "Professional, courteous, and very transparent with their pricing. The new bathroom installation is perfect.",
+    name: "hind bahraoui",
+    text: "Sans aucun doute une bouée de sauvetage !Je me suis réveillé avec une fuite importante au milieu de mon îlot de cuisine. J'ai appelé vers 9 h, sans hésiter, ils ont pris mon urgence au sérieux et ont agi en conséquence. Mon problème a été résolu et, surtout, mon temps a été respecté.",
     stars: 5,
     img: "https://picsum.photos/100/100?random=21"
   },
   {
-    name: "John D.",
-    text: "Finally found a reliable plumbing company in Dubai. They detected a hidden leak that others missed. Saved me a lot of money!",
+    name: "Khadija El Mahdaoui",
+    text: "Un grand merci à ce plombier pour son excellent travail ! Il a installé notre lave-vaisselle avec beaucoup de professionnalisme et a résolu rapidement le problème de blocage du circuit d'eau. Sérieux, compétent et efficace, il a fourni un service de grande qualité.",
     stars: 5,
     img: "https://picsum.photos/100/100?random=22"
   },
 ];
+
 
 const TestimonialsSection: React.FC = () => (
   <section id="testimonials" className="py-20 bg-gradient-to-br from-[#004586] via-blue-800 to-blue-900 text-white">
@@ -377,7 +399,7 @@ const TestimonialsSection: React.FC = () => (
             </div>
             {/* Quote */}
             <blockquote className="mb-4 text-base italic text-blue-50 font-medium leading-relaxed group-hover:text-white transition">
-              “{t.text}”
+              "{t.text}"
             </blockquote>
             <h4 className="font-bold text-lg text-[#ffd700] drop-shadow-lg">{t.name}</h4>
           </div>
@@ -387,9 +409,11 @@ const TestimonialsSection: React.FC = () => (
   </section>
 );
 
+
 // --- Contact Section ---
 const ContactSection: React.ForwardRefRenderFunction<HTMLDivElement> = (_, ref) => {
-  const ownerWhatsApp = "971522163478";
+  const ownerWhatsApp = "212660680038";
+
 
   const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -399,6 +423,7 @@ const ContactSection: React.ForwardRefRenderFunction<HTMLDivElement> = (_, ref) 
     const phone = (form.elements.namedItem('phone') as HTMLInputElement).value;
     const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
 
+
     const text =
       `New Contact Request!%0A` +
       `Name: ${encodeURIComponent(name)}%0A` +
@@ -406,8 +431,10 @@ const ContactSection: React.ForwardRefRenderFunction<HTMLDivElement> = (_, ref) 
       `Phone: ${encodeURIComponent(phone)}%0A` +
       `Message: ${encodeURIComponent(message)}`;
 
+
     window.open(`https://wa.me/${ownerWhatsApp}?text=${text}`, '_blank');
   };
+
 
   return (
     <section id="contact" ref={ref} className="py-20 bg-white">
@@ -429,8 +456,8 @@ const ContactSection: React.ForwardRefRenderFunction<HTMLDivElement> = (_, ref) 
           <div>
             <div className="bg-gray-50 p-6 rounded-lg mb-6">
               <h3 className="font-bold text-lg mb-2 text-gray-800">Contact Details</h3>
-              <p className="text-gray-700 mb-2"><strong>Phone:</strong> +971522163478</p>
-              <p className="text-gray-700 mb-4"><strong>Email:</strong> contact@titanplumberdubai.com</p>
+              <p className="text-gray-700 mb-2"><strong>Phone:</strong> 0660680038</p>
+              <p className="text-gray-700 mb-4"><strong>Email:</strong> contact@plombiermarrakech.com</p>
               <a
                 className="w-full inline-flex items-center justify-center gap-2 bg-green-500 text-white font-bold p-4 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transition"
                 href={`https://wa.me/${ownerWhatsApp}`}
@@ -443,8 +470,8 @@ const ContactSection: React.ForwardRefRenderFunction<HTMLDivElement> = (_, ref) 
             </div>
             <div className="rounded-lg overflow-hidden shadow-md">
               <iframe
-                title="Titan Plumber in Dubai location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462561.65764262725!2d54.6177793890625!3d25.076022400000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4e640851085e812f%3A0x4553533dc4f28140!2sTitan%20Plumber%20in%20Dubai!5e0!3m2!1sfr!2sma!4v1762695226908!5m2!1sfr!2sma"
+                title="Plombier Marrakech location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478418.0324114864!2d-8.0233483!3d31.636790599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdafeffb5d296891%3A0x155eba27922bdf7b!2sPlombier%20marrakech!5e0!3m2!1sfr!2sma!4v1762899376247!5m2!1sfr!2sma"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}
@@ -461,6 +488,7 @@ const ContactSection: React.ForwardRefRenderFunction<HTMLDivElement> = (_, ref) 
 };
 const ContactSectionWithRef = React.forwardRef(ContactSection);
 
+
 // --- Footer Component ---
 const Footer: React.FC = () => (
   <footer className="bg-gradient-to-tr from-[#004586] via-gray-900 to-[#222] text-gray-300 py-10">
@@ -473,7 +501,7 @@ const Footer: React.FC = () => (
           rel="noopener noreferrer"
           className="hover:text-[#004586] transition-colors duration-300"
         >
-          <Icon name="facebook" className="w-7 h-7" />
+          <FontAwesomeIcon icon={faFacebook} className="w-7 h-7" />
         </a>
         <a
           aria-label="TikTok"
@@ -482,10 +510,7 @@ const Footer: React.FC = () => (
           rel="noopener noreferrer"
           className="hover:text-[#004586] transition-colors duration-300"
         >
-          {/* TikTok SVG icon */}
-          <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12.584 7.13v7.21c0 1.418-1.005 2.277-2.08 2.277-1.006 0-2.079-.508-2.079-2.277 0-1.351.71-2.175 2.079-2.175.238 0 .426.016.609.054V9.68c-.2-.02-.407-.025-.627-.025-3.027 0-4.981 1.87-4.981 4.878 0 2.929 1.988 4.86 4.981 4.86 3.018 0 4.968-1.955 4.968-4.86V8.06c.524.138 1.021.225 1.671.225V6.057c-.864 0-1.441-.196-1.921-.522-.462-.315-.771-.78-.917-1.279H13.09v2.874c-.166-.043-.341-.095-.506-.162z"></path>
-          </svg>
+          <FontAwesomeIcon icon={faTiktok} className="w-7 h-7" />
         </a>
         <a
           aria-label="Instagram"
@@ -494,34 +519,40 @@ const Footer: React.FC = () => (
           rel="noopener noreferrer"
           className="hover:text-[#004586] transition-colors duration-300"
         >
-          <Icon name="instagram" className="w-8 h-8" />
+          <FontAwesomeIcon icon={faInstagram} className="w-8 h-8" />
         </a>
       </div>
       <p className="text-sm font-semibold tracking-wide">
-        Titan Plumber Dubai © 2025 | All Rights Reserved
+        Plombier Marrakech © 2025 | All Rights Reserved
       </p>
     </div>
   </footer>
 );
 
-
 // --- Main App Component ---
 const App: React.FC = () => {
   const contactRef = useRef<HTMLDivElement>(null);
-  const logo = "https://i.postimg.cc/Bbj3pw7G/Chat-GPT-Image-9-nov-2025-14-45-53-removebg-preview.png";
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const logo = "https://i.postimg.cc/6q95pGv5/Gemini-Generated-Image-ietfb7ietfb7ietf-removebg-preview.png";
+
 
   const handleGetQuoteClick = () => {
     contactRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const handleSeeOurWorkClick = () => {
+    galleryRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
 
   return (
     <div className="bg-white">
       <Preloader logoSrc={logo} />
       <Header onGetQuoteClick={handleGetQuoteClick} logoSrc={logo} />
       <main>
-        <HeroSection onGetQuoteClick={handleGetQuoteClick} />
+        <HeroSection onSeeOurWorkClick={handleSeeOurWorkClick} />
         <AboutSection />
-        <GallerySection />
+        <GallerySection ref={galleryRef} />
         <WhyChooseUsSection />
         <TestimonialsSection />
         <ContactSectionWithRef ref={contactRef} />
@@ -530,5 +561,6 @@ const App: React.FC = () => {
     </div>
   );
 };
+
 
 export default App;
